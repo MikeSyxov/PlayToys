@@ -23,7 +23,7 @@ public class PlayToys {
                 System.out.println("Некорректный ввод. Повторите снова.");
                 break;
             }
-            System.out.print("Введите частоту выподения : ");
+            System.out.print("Введите частоту выподения где 1(10%) а 3(30%) шанс: ");
             String value = scan.nextLine();
             if (isDigit(value)) {
                 frequency = Integer.parseInt(value);
