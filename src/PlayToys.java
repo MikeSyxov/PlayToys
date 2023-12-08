@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.Random;
 import java.util.Scanner;
 
 public class PlayToys {
@@ -43,7 +44,30 @@ public class PlayToys {
     }
 
     public void setFrequency() {
-    
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Введите ID игрушки: ");
+        String value = scan.nextLine();
+        if (isDigit(value)) {
+            int selectedId = Integer.parseInt(value);
+            if (selectedId >= 0 && selectedId < toys.size()) {
+                System.out.println("Toy " + toys.get(selectedId).getToyTitle() +
+                " частота выйгрыша " + toys.get(selectedId).getToyVictoryFrequency());
+                System.out.print("Введите новую частоту выподения: ");
+                value = scan.nextLine();
+                if (isDigit(value)) {
+                    int newFrequency = Integer.parseInt(value);
+                    toys.get(selectedId).setToyVictoryFrequency(newFrequency);
+                    System.out.println("Частота изменина.");
+            } else {
+                System.out.println("Некорректный ввод. Повторите снова.");
+                }
+            } else {
+                System.out.println("В призовом фонде нет игрушки с таким ID.");
+            }
+        } else {
+            System.out.println("Некорректный ввод. Повторите снова.");
+        }
+            
     }
 
     private static boolean isDigit(String s) throws NumberFormatException {
@@ -54,11 +78,27 @@ public class PlayToys {
             return false;
         }
     }
-
+    public Toy getPrize() {
+        if (prizes.size() == 0) {
+            Random rnd = new Random();
+            for (Toy toy : toys) {
+                for (int i = 0; i < toy.getToyVictoryFrequency(); i++) {
+                    Toy temp = new Toy(toy.getToyId(), toy.getToyTitle(), rnd.nextInt(1, 10));
+                    prizes.add(temp);
+                }
+            }
+        }
+        return prizes.poll();
+    }
 
 
     public void PlayToys() {
-    
+        if(toys.size() >= 2){
+            Toy prize = getPrize();
+            System.out.println("Приз: " + prize.getToyTitle()); 
+        } else {
+            System.out.println("Вы должны добавить в призовой фонд как минимум две игрушки.");
+        }
     }
 
    
