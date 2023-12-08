@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -20,7 +23,7 @@ public class PlayToys {
                 System.out.println("Некорректный ввод. Повторите снова.");
                 break;
             }
-            System.out.print("Введите частоту выподения: ");
+            System.out.print("Введите частоту выподения : ");
             String value = scan.nextLine();
             if (isDigit(value)) {
                 frequency = Integer.parseInt(value);
@@ -51,15 +54,15 @@ public class PlayToys {
             int selectedId = Integer.parseInt(value);
             if (selectedId >= 0 && selectedId < toys.size()) {
                 System.out.println("Toy " + toys.get(selectedId).getToyTitle() +
-                " частота выйгрыша " + toys.get(selectedId).getToyVictoryFrequency());
+                        " частота выйгрыша " + toys.get(selectedId).getToyVictoryFrequency());
                 System.out.print("Введите новую частоту выподения: ");
                 value = scan.nextLine();
                 if (isDigit(value)) {
                     int newFrequency = Integer.parseInt(value);
                     toys.get(selectedId).setToyVictoryFrequency(newFrequency);
                     System.out.println("Частота изменина.");
-            } else {
-                System.out.println("Некорректный ввод. Повторите снова.");
+                } else {
+                    System.out.println("Некорректный ввод. Повторите снова.");
                 }
             } else {
                 System.out.println("В призовом фонде нет игрушки с таким ID.");
@@ -67,7 +70,7 @@ public class PlayToys {
         } else {
             System.out.println("Некорректный ввод. Повторите снова.");
         }
-            
+
     }
 
     private static boolean isDigit(String s) throws NumberFormatException {
@@ -78,6 +81,7 @@ public class PlayToys {
             return false;
         }
     }
+
     public Toy getPrize() {
         if (prizes.size() == 0) {
             Random rnd = new Random();
@@ -91,15 +95,28 @@ public class PlayToys {
         return prizes.poll();
     }
 
-
-    public void PlayToys() {
-        if(toys.size() >= 2){
+    public void playToys() {
+        if (toys.size() >= 2) {
             Toy prize = getPrize();
-            System.out.println("Приз: " + prize.getToyTitle()); 
+            System.out.println("Приз: " + prize.getToyTitle());
+            saveResult(prize.getInfo());
         } else {
             System.out.println("Вы должны добавить в призовой фонд как минимум две игрушки.");
         }
     }
 
-   
+    private void saveResult(String text) {
+        File file = new File("Result.txt");
+        try {
+            file.createNewFile();
+        } catch (Exception ignored) {
+            throw new RuntimeException();
+        }
+        try (FileWriter fw = new FileWriter("Result.txt", true)) {
+            fw.write(text + "\n");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }

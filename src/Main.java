@@ -16,9 +16,9 @@ public class Main {
             switch (selection) {
                 case "1" -> run.addToy();
                 case "2" -> run.setFrequency();
-                case "3" -> run.PlayToys();
+                case "3" -> run.playToys();
                 case "4" -> {
-                    System.out.println("Пока");
+                    System.out.println("Выход произведен");
                     System.exit(4);
                 }
                 default -> System.out.println("Некорректный выбор. Попробуйте снова.");

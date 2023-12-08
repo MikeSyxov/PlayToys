@@ -11,6 +11,7 @@ public class Toy implements Comparable<Toy> {
         this.toyTitle = toyTitle;
         this.toyVictoryFrequency = toyVictoryFrequency;
     }
+
     public int getToyId() {
         return toyId;
     }
@@ -22,6 +23,7 @@ public class Toy implements Comparable<Toy> {
     public int getToyVictoryFrequency() {
         return toyVictoryFrequency;
     }
+
     public void setToyVictoryFrequency(int toyVictoryFrequency) {
         this.toyVictoryFrequency = toyVictoryFrequency;
     }
@@ -29,10 +31,13 @@ public class Toy implements Comparable<Toy> {
     public String getInfo() {
         return String.format("ID: %d, Title: %s", toyId, toyTitle);
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Toy toy = (Toy) o;
         return toyTitle.equals(toy.toyTitle);
     }
